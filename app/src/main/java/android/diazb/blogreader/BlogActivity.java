@@ -2,35 +2,34 @@ package android.diazb.blogreader;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
 
 public class BlogActivity extends Activity {
+
+    protected ProgressBar progressBar;
+    protected ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog);
-    }
 
+        String[] arrayStrings= new String[]{
+                "Blog Post #1",
+                "Blog Post #2",
+                "Blog Post #3",
+                "Blog Post #4"
+        };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.blog, menu);
-        return true;
-    }
+        progressBar=(ProgressBar)findViewById(R.id.ProgressBar);
+        listView=(ListView)findViewById(R.id.ListView);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        listView.setEmptyView(progressBar);
+
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayStrings);
+        listView.setAdapter(adapter);
     }
 }
