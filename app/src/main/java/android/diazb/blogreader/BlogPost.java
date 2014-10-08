@@ -1,7 +1,6 @@
 package android.diazb.blogreader;
 
 public class BlogPost {
-
     public final String title;
     public final String url;
 
