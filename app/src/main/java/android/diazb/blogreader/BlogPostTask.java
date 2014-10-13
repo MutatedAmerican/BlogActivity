@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ListIterator;
 
 public class BlogPostTask extends AsyncTask<Activity, Void, JSONObject>{
     private Activity activity;
@@ -44,8 +46,11 @@ public class BlogPostTask extends AsyncTask<Activity, Void, JSONObject>{
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
+        BlogPostParser.get().readFeed(jsonObject);
 
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayStrings);
+        ListView listView= (ListView)activity.findViewById(R.id.ListView);
+
+        ArrayAdapter<BlogPost> adapter= new ArrayAdapter<BlogPost>(activity, android.R.layout.simple_list_item_1, BlogPostParser.get().posts);
         listView.setAdapter(adapter);
     }
 }

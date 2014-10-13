@@ -7,6 +7,10 @@ public class BlogPost {
     public BlogPost(String title, String url){
         this.title=title;
         this.url=url;
+    }
 
+    @Override
+    public String toString() {
+        return title;
     }
 }
