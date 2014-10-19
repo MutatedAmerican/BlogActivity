@@ -20,7 +20,7 @@ public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
         BlogPost post= getItem(position);
 
         if(convertView== null){
-            convertView= LayoutInflater.from(getContext()).inflate(android.R.layout.simple_selectable_list_item, parent, false);
+            convertView= LayoutInflater.from(getContext()).inflate(android.R.layout.simple_expandable_list_item_1, parent, false);
         }
 
         TextView textView= (TextView)convertView.findViewById(android.R.id.text1);
