@@ -62,8 +62,13 @@ public class BlogPostParser {
 
                 String title=post.getString("title");
                 String url=post.getString("url");
+                String date=post.getString("date");
+                String author=post.getString("author");
+                String thumbnail=post.getString("thumbnail");
 
-                BlogPost blogPost=new BlogPost(title,url);
+
+
+                BlogPost blogPost=new BlogPost(title,url,date,author,thumbnail);
                 posts.add(blogPost);
             }
         }
