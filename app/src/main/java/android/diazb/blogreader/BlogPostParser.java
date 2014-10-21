@@ -62,11 +62,11 @@ public class BlogPostParser {
                 JSONObject post=jsonPosts.getJSONObject(index);
 
                 String title= Html.fromHtml(post.getString("title")).toString();
-                String url=post.getString("url");
-                String date=post.getString("date");
-                String author=post.getString("author");
-                String thumbnail=post.getString("thumbnail");
-
+                String url= Html.fromHtml(post.getString("url")).toString();
+                String date= Html.fromHtml(post.getString("date")).toString();
+                String author= Html.fromHtml(post.getString("author")).toString();
+                String thumbnail= Html.fromHtml(post.getString("thumbnail")).toString();
+                
                 BlogPost blogPost=new BlogPost(title,url,date,author,thumbnail);
                 posts.add(blogPost);
             }
