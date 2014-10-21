@@ -1,5 +1,6 @@
 package android.diazb.blogreader;
 
+import android.text.Html;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -57,16 +58,14 @@ public class BlogPostParser {
         try{
             JSONArray jsonPosts= jsonObject.getJSONArray("posts");
 
-            for(int index=0; index<jsonObject.length(); index++){
+            for(int index=0; index < jsonPosts.length(); index++){
                 JSONObject post=jsonPosts.getJSONObject(index);
 
-                String title=post.getString("title");
+                String title= Html.fromHtml(post.getString("title")).toString();
                 String url=post.getString("url");
                 String date=post.getString("date");
                 String author=post.getString("author");
                 String thumbnail=post.getString("thumbnail");
-
-
 
                 BlogPost blogPost=new BlogPost(title,url,date,author,thumbnail);
                 posts.add(blogPost);
