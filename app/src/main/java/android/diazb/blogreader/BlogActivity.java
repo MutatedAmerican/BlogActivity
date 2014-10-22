@@ -16,6 +16,8 @@ public class BlogActivity extends Activity {
 
     protected ProgressBar progressBar;
     protected ListView listView;
+    protected ListView Title;
+    protected ListView Author;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

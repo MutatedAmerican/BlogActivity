@@ -23,11 +23,14 @@ public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.activity_layout, parent, false);
         }
 
-        TextView textViewtitle= (TextView)convertView.findViewById(android.R.id.text1);
-        textViewtitle.setText(post.title);
+        TextView textView= (TextView)convertView.findViewById(R.id.blogTitle);
+        textView.setText(post.title);
 
-        TextView textViewauthor= (TextView)convertView.findViewById(android.R.id.text1);
-        textViewauthor.setText(post.author);
+        TextView textView1= (TextView)convertView.findViewById(R.id.blogAuthor);
+        textView1.setText(post.author);
+
+        TextView textView2= (TextView)convertView.findViewById(R.id.blogDate);
+        textView2.setText(post.date);
 
         return convertView;
     }
