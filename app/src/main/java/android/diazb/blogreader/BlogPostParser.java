@@ -66,7 +66,7 @@ public class BlogPostParser {
                 String date= Html.fromHtml(post.getString("date")).toString();
                 String author= Html.fromHtml(post.getString("author")).toString();
                 String thumbnail= Html.fromHtml(post.getString("thumbnail")).toString();
-                
+
                 BlogPost blogPost=new BlogPost(title,url,date,author,thumbnail);
                 posts.add(blogPost);
             }
