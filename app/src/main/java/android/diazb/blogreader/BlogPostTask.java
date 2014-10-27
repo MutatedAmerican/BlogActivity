@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ListView;
-
 import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ListIterator;
 
 public class BlogPostTask extends AsyncTask<Activity, Void, JSONObject>{
     private Activity activity;
