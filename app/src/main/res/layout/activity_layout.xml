@@ -12,18 +12,24 @@
     <TextView
         android:id="@+id/blogTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="#F000"
+        android:textSize="40px"/>
 
     <TextView
         android:id="@+id/blogAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/blogTitle"/>
+        android:layout_below="@+id/blogTitle"
+        android:textColor="#F000"
+        android:textSize="35px"/>
     <TextView
         android:id="@+id/blogDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/blogAuthor"/>
+        android:layout_below="@+id/blogAuthor"
+        android:textColor="#FF0000"
+        android:textSize="20px"/>
 
     <ImageView
         android:id="@+id/blogThumbnail"
