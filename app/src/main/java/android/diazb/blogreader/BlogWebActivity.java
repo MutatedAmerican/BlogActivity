@@ -6,26 +6,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class BlogWebActivity extends Activity{
-
-    protected ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_web);
 
-        progressBar=(ProgressBar)findViewById(R.id.progressBar);
-
-        WebView webView= (WebView)findViewById(R.id.webView);
-
-        progressBar.setVisibility(View.GONE);
-
         Intent intent= getIntent();
         Uri blogUri= intent.getData();
 
+        final ProgressBar progressbar= (ProgressBar)findViewById(R.id.ProgressBarWeb);
+
+        WebView webView= (WebView)findViewById(R.id.webView);
         webView.loadUrl(blogUri.toString());
+
+        webView.setWebViewClient(new WebViewClient() {
+           @Override
+            public void onPageFinished(WebView webview, String url) {
+
+               progressbar.setVisibility(View.GONE);
+            }
+        });
     }
 }
