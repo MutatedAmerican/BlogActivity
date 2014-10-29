@@ -3,6 +3,7 @@ package android.diazb.blogreader;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.GridView;
 import android.widget.ListView;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -45,9 +46,9 @@ public class BlogPostTask extends AsyncTask<Activity, Void, JSONObject>{
     protected void onPostExecute(JSONObject jsonObject) {
         BlogPostParser.get().readFeed(jsonObject);
 
-        ListView listView= (ListView)activity.findViewById(R.id.ListView);
+        GridView gridView= (GridView)activity.findViewById(R.id.GridView);
 
         BlogPostAdapter adapter= new BlogPostAdapter(activity, BlogPostParser.get().posts);
-        listView.setAdapter(adapter);
+        gridView.setAdapter(adapter);
     }
 }
