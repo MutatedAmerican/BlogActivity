@@ -1,5 +1,6 @@
 package android.diazb.blogreader;
-
+//android:layout_alignParentLeft="true"
+//android:layout_alignParentStart="true"
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
