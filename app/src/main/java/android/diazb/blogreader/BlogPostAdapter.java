@@ -16,11 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
@@ -46,30 +43,6 @@ public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
         TextView textView2 = (TextView) convertView.findViewById(R.id.blogDate);
         textView2.setText(post.date);
 
-        class ImageView extends AsyncTask<String, Void, Bitmap> {
-            ImageView imageview;
-            URLConnection connection;
-            JSONObject jsonObject = null;
-
-
-            public ImageView(ImageView imageview) {
-                this.imageview = imageview;
-            }
-
-            protected Bitmap doInBackground(String... urls) {
-                String url = urls[0];
-                Bitmap bitmap = null;
-                try {
-                    Log.i("BlogPostTask", "Successful Connection" + responseCode);
-                    JSONObject jsonObject = BlogPostParser.get().parse(connection.getInputStream());
-                }
-                catch (Exception e) {
-                    Log.e("Error", e.getMessage());
-                    e.printStackTrace();
-                }
-                return bitmap;
-            }
-        }
-        ImageView imageview = (ImageView)convertView.findViewById(R.id.blogThumbnail);
-        imageview.setImageBitmap(thumbnail);
+        return convertView;
     }
+}
