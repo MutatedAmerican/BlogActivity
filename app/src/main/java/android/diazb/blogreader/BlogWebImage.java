@@ -1,41 +1,59 @@
 package android.diazb.blogreader;
-
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.GridView;
+import android.widget.ImageView;
+
 import org.json.JSONObject;
-import java.net.URLConnection;
 
-public class BlogWebImage {
-    public final String thumbnail;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+class BlogWebImage extends AsyncTask<String, Void, JSONObject> {
+    private ImageView imageview;
+
+    public BlogWebImage(ImageView imageview) {
+        this.imageview = imageview;
+    }
+    @Override
+    protected JSONObject doInBackground(String... urls) {
+        String urldisplay = urls[0];
+        JSONObject bmap = null;
+
+        try{
+            URL blogFeedUrl= new URL(urldisplay);
+
+            HttpURLConnection connection=(HttpURLConnection)blogFeedUrl.openConnection();
+            connection.connect();
+
+            int responseCode= connection.getResponseCode();
+
+            if (responseCode==HttpURLConnection.HTTP_OK){
+                Log.i("BlogPostTask", "Successful Connection" + responseCode);
+                bmap=BlogPostParser.get().parse(connection.getInputStream());
+            }
+        }
+
+        catch (MalformedURLException error) {
+            Log.e("BlogPostTask", "Malformed URL:" + error);
+        }
+
+        catch (IOException error) {
+            Log.e("BlogPostTask", "IO Exception:" + error);
+        }
+
+        return bmap;
+    }
+
+    protected void onPostExecute(JSONObject jsonObject) {
+        BlogPostParser.get().readFeed(jsonObject);
+
+        GridView gridView= (GridView)imageview.findViewById(R.id.GridView);
+
+        BlogPostAdapter adapter= new BlogPostAdapter(imageview, BlogPostParser.get().posts);
+        gridView.setAdapter(adapter);
+    }
 }
-
-    class ImageView extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageview;
-        URLConnection connection;
-        JSONObject jsonObject = null;
-
-
-        public ImageView(ImageView imageview) {
-            this.imageview = imageview;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String url = urls[0];
-            Bitmap bitmap = null;
-            try {
-                Log.i("BlogPostTask", "Successful Connection" + url);
-                JSONObject jsonObject = BlogPostParser.get().parse(connection.getInputStream());
-            }
-            catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-    }
-
-
-    public BlogWebImage(String thumbnail){
-        this.thumbnail=thumbnail;
-    }
