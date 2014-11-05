@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +35,8 @@ public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_layout, parent, false);
         }
+        new BlogWebImage((ImageView) convertView.findViewById(R.id.blogThumbnail))
+        .execute(post.thumbnail);
 
         TextView textView = (TextView) convertView.findViewById(R.id.blogTitle);
         textView.setText(post.title);
@@ -42,8 +46,6 @@ public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
 
         TextView textView2 = (TextView) convertView.findViewById(R.id.blogDate);
         textView2.setText(post.date);
-
-        new BlogWebImage(imageview).execute(post.thumbnail);
 
         return convertView;
     }

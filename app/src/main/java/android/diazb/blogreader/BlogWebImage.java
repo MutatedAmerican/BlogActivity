@@ -1,30 +1,28 @@
 package android.diazb.blogreader;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.GridView;
 import android.widget.ImageView;
-
-import org.json.JSONObject;
-
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class BlogWebImage extends AsyncTask<String, Void, JSONObject> {
-    private ImageView imageview;
+class BlogWebImage extends AsyncTask<String, Void, Bitmap> {
+    ImageView imageview;
 
     public BlogWebImage(ImageView imageview) {
         this.imageview = imageview;
     }
     @Override
-    protected JSONObject doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        JSONObject bmap = null;
+    protected Bitmap doInBackground(String... urls) {
+        String url = urls[0];
+        Bitmap bitmap = null;
 
         try{
-            URL blogFeedUrl= new URL(urldisplay);
+            URL blogFeedUrl= new URL(url);
 
             HttpURLConnection connection=(HttpURLConnection)blogFeedUrl.openConnection();
             connection.connect();
@@ -32,28 +30,23 @@ class BlogWebImage extends AsyncTask<String, Void, JSONObject> {
             int responseCode= connection.getResponseCode();
 
             if (responseCode==HttpURLConnection.HTTP_OK){
-                Log.i("BlogPostTask", "Successful Connection" + responseCode);
-                bmap=BlogPostParser.get().parse(connection.getInputStream());
+                Log.i("BlogWebImage", "Successful Connection" + responseCode);
+                InputStream in = new java.net.URL(url).openStream();
+                bitmap = BitmapFactory.decodeStream(in);
             }
         }
 
         catch (MalformedURLException error) {
-            Log.e("BlogPostTask", "Malformed URL:" + error);
+            Log.e("BlogWebImage", "Malformed URL:" + error);
         }
 
         catch (IOException error) {
-            Log.e("BlogPostTask", "IO Exception:" + error);
+            Log.e("BlogWebImage", "IO Exception:" + error);
         }
-
-        return bmap;
+        return bitmap;
     }
 
-    protected void onPostExecute(JSONObject jsonObject) {
-        BlogPostParser.get().readFeed(jsonObject);
-
-        GridView gridView= (GridView)imageview.findViewById(R.id.GridView);
-
-        BlogPostAdapter adapter= new BlogPostAdapter(imageview, BlogPostParser.get().posts);
-        gridView.setAdapter(adapter);
+    protected void onPostExecute(Bitmap display) {
+        imageview.setImageBitmap(display);
     }
 }
