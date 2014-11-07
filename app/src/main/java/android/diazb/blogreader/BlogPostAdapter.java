@@ -47,6 +47,7 @@ public class BlogPostAdapter extends ArrayAdapter<BlogPost> {
         TextView textView2 = (TextView) convertView.findViewById(R.id.blogDate);
         textView2.setText(post.date);
 
+
         return convertView;
     }
 }
