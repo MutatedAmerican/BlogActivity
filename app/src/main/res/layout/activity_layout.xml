@@ -12,10 +12,10 @@
     <ImageView
         android:contentDescription="Image"
         android:id="@+id/blogThumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="center"
         />
-
 
     <TextView
         android:id="@+id/blogTitle"
